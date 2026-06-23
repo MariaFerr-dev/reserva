@@ -43,118 +43,113 @@ export default async function Home() {
   const { users, resources, reservations } = await getData();
 
   return (
-    <main style={{ padding: 24, fontFamily: "sans-serif" }}>
-      <h1>Reservaa</h1>
-      <p>CRUD fácil para recursos y reservas con base de datos Neon.</p>
-
-      <section style={{ marginTop: 32 }}>
-        <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-          <Link href="/resources/new" style={{ padding: 12, background: "#0b5fff", color: "white", textDecoration: "none", borderRadius: 8 }}>
-            Crear recurso
-          </Link>
-          <Link href="/users/new" style={{ padding: 12, background: "#0b8500", color: "white", textDecoration: "none", borderRadius: 8 }}>
-            Crear usuario
-          </Link>
-          <Link href="/reservations/new" style={{ padding: 12, background: "#ff7a00", color: "white", textDecoration: "none", borderRadius: 8 }}>
-            Crear reserva
-          </Link>
+    <main>
+      <div className="card">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold">Reservaa</h1>
+            <p className="text-slate-600 mt-1">CRUD fácil para recursos y reservas con base de datos Neon.</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <Link href="/resources/new" className="px-3 py-2 rounded-md bg-indigo-600 text-white">Crear recurso</Link>
+            <Link href="/users/new" className="px-3 py-2 rounded-md bg-emerald-600 text-white">Crear usuario</Link>
+            <Link href="/reservations/new" className="px-3 py-2 rounded-md bg-amber-500 text-white">Crear reserva</Link>
+          </div>
         </div>
-      </section>
 
-      <section style={{ marginTop: 40 }}>
-        <h2>Usuarios</h2>
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr>
-              <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Nombre</th>
-              <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Email</th>
-              <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Rol</th>
-              <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user: UserRow) => (
-              <tr key={user.id}>
-                <td style={{ padding: 8 }}>{user.name}</td>
-                <td style={{ padding: 8 }}>{user.email}</td>
-                <td style={{ padding: 8 }}>{user.role}</td>
-                <td style={{ padding: 8 }}>
-                  <form action={`/users/${user.id}/delete`} method="post" style={{ display: "inline" }}>
-                    <button type="submit" style={{ color: "#c00", border: "none", background: "transparent", cursor: "pointer" }}>
-                      Eliminar
-                    </button>
-                  </form>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
+        <section className="mt-8">
+          <h2 className="text-xl font-semibold">Usuarios</h2>
+          <div className="overflow-x-auto mt-4">
+            <table className="w-full table-auto">
+              <thead className="text-sm text-slate-500">
+                <tr>
+                  <th className="text-left pb-2">Nombre</th>
+                  <th className="text-left pb-2">Email</th>
+                  <th className="text-left pb-2">Rol</th>
+                  <th className="text-left pb-2">Acciones</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y">
+                {users.map((user: UserRow) => (
+                  <tr key={user.id} className="py-2">
+                    <td className="py-3">{user.name}</td>
+                    <td className="py-3">{user.email}</td>
+                    <td className="py-3">{user.role}</td>
+                    <td className="py-3">
+                      <form action={`/users/${user.id}/delete`} method="post" className="inline">
+                        <button type="submit" className="text-sm text-red-600">Eliminar</button>
+                      </form>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-      <section style={{ marginTop: 40 }}>
-        <h2>Recursos</h2>
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr>
-              <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Nombre</th>
-              <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Ubicación</th>
-              <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Reservas</th>
-              <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {resources.map((resource: ResourceRow) => (
-              <tr key={resource.id}>
-                <td style={{ padding: 8 }}>{resource.name}</td>
-                <td style={{ padding: 8 }}>{resource.location}</td>
-                <td style={{ padding: 8 }}>{resource.reservations.length}</td>
-                <td style={{ padding: 8 }}>
-                  <Link href={`/resources/${resource.id}/edit`} style={{ marginRight: 8 }}>
-                    Editar
-                  </Link>
-                  <form action={`/resources/${resource.id}/delete`} method="post" style={{ display: "inline" }}>
-                    <button type="submit" style={{ color: "#c00", border: "none", background: "transparent", cursor: "pointer" }}>
-                      Eliminar
-                    </button>
-                  </form>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
+        <section className="mt-8">
+          <h2 className="text-xl font-semibold">Recursos</h2>
+          <div className="overflow-x-auto mt-4">
+            <table className="w-full table-auto">
+              <thead className="text-sm text-slate-500">
+                <tr>
+                  <th className="text-left pb-2">Nombre</th>
+                  <th className="text-left pb-2">Ubicación</th>
+                  <th className="text-left pb-2">Reservas</th>
+                  <th className="text-left pb-2">Acciones</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y">
+                {resources.map((resource: ResourceRow) => (
+                  <tr key={resource.id} className="py-2">
+                    <td className="py-3">{resource.name}</td>
+                    <td className="py-3">{resource.location}</td>
+                    <td className="py-3">{resource.reservations.length}</td>
+                    <td className="py-3">
+                      <Link href={`/resources/${resource.id}/edit`} className="mr-3 text-slate-600">Editar</Link>
+                      <form action={`/resources/${resource.id}/delete`} method="post" className="inline">
+                        <button type="submit" className="text-sm text-red-600">Eliminar</button>
+                      </form>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-      <section style={{ marginTop: 40 }}>
-        <h2>Reservas recientes</h2>
-        <table style={{ width: "100%", borderCollapse: "collapse" }}>
-          <thead>
-            <tr>
-              <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Usuario</th>
-              <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Recurso</th>
-              <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Fecha</th>
-              <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Hora final</th>
-              <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: 8 }}>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reservations.map((reservation: ReservationRow) => (
-              <tr key={reservation.id}>
-                <td style={{ padding: 8 }}>{reservation.user.name}</td>
-                <td style={{ padding: 8 }}>{reservation.resource.name}</td>
-                <td style={{ padding: 8 }}>{format(new Date(reservation.date), "dd/MM/yyyy HH:mm")}</td>
-                <td style={{ padding: 8 }}>{format(new Date(reservation.endTime), "dd/MM/yyyy HH:mm")}</td>
-                <td style={{ padding: 8 }}>
-                  <form action={`/reservations/${reservation.id}/delete`} method="post" style={{ display: "inline" }}>
-                    <button type="submit" style={{ color: "#c00", border: "none", background: "transparent", cursor: "pointer" }}>
-                      Cancelar
-                    </button>
-                  </form>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
+        <section className="mt-8">
+          <h2 className="text-xl font-semibold">Reservas recientes</h2>
+          <div className="overflow-x-auto mt-4">
+            <table className="w-full table-auto">
+              <thead className="text-sm text-slate-500">
+                <tr>
+                  <th className="text-left pb-2">Usuario</th>
+                  <th className="text-left pb-2">Recurso</th>
+                  <th className="text-left pb-2">Fecha</th>
+                  <th className="text-left pb-2">Hora final</th>
+                  <th className="text-left pb-2">Acciones</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y">
+                {reservations.map((reservation: ReservationRow) => (
+                  <tr key={reservation.id} className="py-2">
+                    <td className="py-3">{reservation.user.name}</td>
+                    <td className="py-3">{reservation.resource.name}</td>
+                    <td className="py-3">{format(new Date(reservation.date), "dd/MM/yyyy HH:mm")}</td>
+                    <td className="py-3">{format(new Date(reservation.endTime), "dd/MM/yyyy HH:mm")}</td>
+                    <td className="py-3">
+                      <form action={`/reservations/${reservation.id}/delete`} method="post" className="inline">
+                        <button type="submit" className="text-sm text-red-600">Cancelar</button>
+                      </form>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
