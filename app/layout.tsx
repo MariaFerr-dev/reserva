@@ -10,27 +10,31 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
-      <body className="min-h-screen bg-slate-50 text-slate-900">
-        <header className="border-b border-slate-200 bg-white/60 backdrop-blur sticky top-0 z-40">
-          <div className="container flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 py-4">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-cyan-400 flex items-center justify-center text-white font-bold">R</div>
+      <body>
+        <header className="border-b border-slate-700 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 backdrop-blur-xl sticky top-0 z-40 shadow-2xl">
+          <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-20">
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:shadow-glow transition-all">✨</div>
               <div>
-                <div className="text-lg font-semibold">Reservaa</div>
-                <div className="text-sm text-slate-500">Gestor de recursos y reservas</div>
+                <div className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent">Reservaa</div>
+                <div className="text-xs text-slate-400">Gestor inteligente</div>
               </div>
             </Link>
             <nav className="flex items-center gap-3">
-              <Link href="/resources/new" className="text-sm px-3 py-2 bg-indigo-600 text-white rounded-md">Nuevo Recurso</Link>
-              <Link href="/reservations/new" className="text-sm px-3 py-2 bg-amber-500 text-white rounded-md">Nueva Reserva</Link>
+              <Link href="/resources/new" className="btn-primary text-sm">
+                ➕ Nuevo Recurso
+              </Link>
+              <Link href="/reservations/new" className="btn-accent text-sm">
+                📅 Nueva Reserva
+              </Link>
             </nav>
           </div>
         </header>
 
-        <main className="container py-8">{children}</main>
+        <main className="max-w-6xl mx-auto px-6 py-12">{children}</main>
 
-        <footer className="mt-12 py-8 text-center text-sm text-slate-500">
-          Hecho con ❤️ — Reservaa
+        <footer className="mt-16 py-8 text-center text-sm text-slate-500 border-t border-slate-700">
+          <div className="max-w-6xl mx-auto">Hecho con 💜 — Reservaa</div>
         </footer>
       </body>
     </html>

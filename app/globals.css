@@ -2,28 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
-  --brand-500: #0b5fff;
-  --brand-600: #0a4be6;
-  --muted: #6b7280;
+@layer base {
+  html, body {
+    @apply m-0 p-0 font-sans bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100 min-h-screen;
+  }
+
+  button, input, select, textarea {
+    font-family: inherit;
+  }
+
+  a {
+    @apply text-indigo-400 hover:text-indigo-300 transition-colors;
+  }
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  background: linear-gradient(180deg,#f7fbff 0%, #ffffff 100%);
-  color: #0f172a;
-}
+@layer components {
+  .card {
+    @apply bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl shadow-2xl rounded-3xl p-8 border border-slate-700/50 hover:border-indigo-500/30 transition-all;
+  }
 
-button, input, select, textarea {
-  font: inherit;
-}
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white rounded-lg font-semibold hover:shadow-glow transition-all hover:-translate-y-0.5 cursor-pointer;
+  }
 
-a {
-  color: var(--brand-500);
-}
+  .btn-secondary {
+    @apply px-6 py-3 bg-gradient-to-r from-pink-600 to-pink-700 text-white rounded-lg font-semibold hover:shadow-glow-pink transition-all hover:-translate-y-0.5 cursor-pointer;
+  }
 
-/* small helper classes */
-.container{max-width:1100px;margin:0 auto;padding:24px}
-.card{background:linear-gradient(180deg,rgba(255,255,255,0.8),#fff);box-shadow:0 6px 18px rgba(11,20,60,0.06);border-radius:12px;padding:20px}
+  .btn-accent {
+    @apply px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all hover:-translate-y-0.5 cursor-pointer;
+  }
+}

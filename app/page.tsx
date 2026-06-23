@@ -43,112 +43,213 @@ export default async function Home() {
   const { users, resources, reservations } = await getData();
 
   return (
-    <main>
+    <main className="space-y-8">
+      {/* Hero Section */}
       <div className="card">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold">Reservaa</h1>
-            <p className="text-slate-600 mt-1">CRUD fácil para recursos y reservas con base de datos Neon.</p>
+            <h1 className="text-5xl font-black bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+              Gestiona tus Recursos
+            </h1>
+            <p className="text-lg text-slate-400">Plataforma inteligente para control de reservas y recursos</p>
           </div>
-          <div className="flex items-center gap-3">
-            <Link href="/resources/new" className="px-3 py-2 rounded-md bg-indigo-600 text-white">Crear recurso</Link>
-            <Link href="/users/new" className="px-3 py-2 rounded-md bg-emerald-600 text-white">Crear usuario</Link>
-            <Link href="/reservations/new" className="px-3 py-2 rounded-md bg-amber-500 text-white">Crear reserva</Link>
-          </div>
+          <div className="text-6xl opacity-20">📊</div>
         </div>
 
-        <section className="mt-8">
-          <h2 className="text-xl font-semibold">Usuarios</h2>
-          <div className="overflow-x-auto mt-4">
-            <table className="w-full table-auto">
-              <thead className="text-sm text-slate-500">
-                <tr>
-                  <th className="text-left pb-2">Nombre</th>
-                  <th className="text-left pb-2">Email</th>
-                  <th className="text-left pb-2">Rol</th>
-                  <th className="text-left pb-2">Acciones</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
-                {users.map((user: UserRow) => (
-                  <tr key={user.id} className="py-2">
-                    <td className="py-3">{user.name}</td>
-                    <td className="py-3">{user.email}</td>
-                    <td className="py-3">{user.role}</td>
-                    <td className="py-3">
-                      <form action={`/users/${user.id}/delete`} method="post" className="inline">
-                        <button type="submit" className="text-sm text-red-600">Eliminar</button>
-                      </form>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+        <div className="grid grid-cols-3 gap-4 mt-8">
+          <Link
+            href="/resources/new"
+            className="btn-primary flex items-center justify-center gap-2 h-20 text-lg group relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-indigo-700 group-hover:scale-105 transition-transform duration-300" />
+            <span className="relative">⚙️ Crear Recurso</span>
+          </Link>
+          <Link
+            href="/users/new"
+            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-lg font-semibold hover:shadow-glow transition-all hover:-translate-y-0.5 cursor-pointer flex items-center justify-center gap-2 h-20 text-lg group relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-purple-700 group-hover:scale-105 transition-transform duration-300" />
+            <span className="relative">👤 Crear Usuario</span>
+          </Link>
+          <Link
+            href="/reservations/new"
+            className="btn-accent flex items-center justify-center gap-2 h-20 text-lg group relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 group-hover:scale-105 transition-transform duration-300" />
+            <span className="relative">📅 Crear Reserva</span>
+          </Link>
+        </div>
+      </div>
 
-        <section className="mt-8">
-          <h2 className="text-xl font-semibold">Recursos</h2>
-          <div className="overflow-x-auto mt-4">
-            <table className="w-full table-auto">
-              <thead className="text-sm text-slate-500">
-                <tr>
-                  <th className="text-left pb-2">Nombre</th>
-                  <th className="text-left pb-2">Ubicación</th>
-                  <th className="text-left pb-2">Reservas</th>
-                  <th className="text-left pb-2">Acciones</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
-                {resources.map((resource: ResourceRow) => (
-                  <tr key={resource.id} className="py-2">
-                    <td className="py-3">{resource.name}</td>
-                    <td className="py-3">{resource.location}</td>
-                    <td className="py-3">{resource.reservations.length}</td>
-                    <td className="py-3">
-                      <Link href={`/resources/${resource.id}/edit`} className="mr-3 text-slate-600">Editar</Link>
-                      <form action={`/resources/${resource.id}/delete`} method="post" className="inline">
-                        <button type="submit" className="text-sm text-red-600">Eliminar</button>
-                      </form>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      {/* Stats */}
+      <div className="grid grid-cols-3 gap-4">
+        <div className="card text-center">
+          <div className="text-4xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+            {users.length}
           </div>
-        </section>
+          <div className="text-sm text-slate-400 mt-2">Usuarios registrados</div>
+        </div>
+        <div className="card text-center">
+          <div className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            {resources.length}
+          </div>
+          <div className="text-sm text-slate-400 mt-2">Recursos disponibles</div>
+        </div>
+        <div className="card text-center">
+          <div className="text-4xl font-bold bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent">
+            {reservations.length}
+          </div>
+          <div className="text-sm text-slate-400 mt-2">Reservas activas</div>
+        </div>
+      </div>
 
-        <section className="mt-8">
-          <h2 className="text-xl font-semibold">Reservas recientes</h2>
-          <div className="overflow-x-auto mt-4">
-            <table className="w-full table-auto">
-              <thead className="text-sm text-slate-500">
-                <tr>
-                  <th className="text-left pb-2">Usuario</th>
-                  <th className="text-left pb-2">Recurso</th>
-                  <th className="text-left pb-2">Fecha</th>
-                  <th className="text-left pb-2">Hora final</th>
-                  <th className="text-left pb-2">Acciones</th>
+      {/* Users Section */}
+      <div className="card">
+        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+          👥 Usuarios ({users.length})
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-slate-700/50">
+                <th className="text-left py-4 px-4 text-slate-300 font-semibold">Nombre</th>
+                <th className="text-left py-4 px-4 text-slate-300 font-semibold">Email</th>
+                <th className="text-left py-4 px-4 text-slate-300 font-semibold">Rol</th>
+                <th className="text-left py-4 px-4 text-slate-300 font-semibold">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user: UserRow) => (
+                <tr
+                  key={user.id}
+                  className="border-b border-slate-700/30 hover:bg-slate-700/30 transition-colors"
+                >
+                  <td className="py-4 px-4">{user.name}</td>
+                  <td className="py-4 px-4 text-slate-400">{user.email}</td>
+                  <td className="py-4 px-4">
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                        user.role === "ADMIN"
+                          ? "bg-red-500/20 text-red-300"
+                          : "bg-blue-500/20 text-blue-300"
+                      }`}
+                    >
+                      {user.role}
+                    </span>
+                  </td>
+                  <td className="py-4 px-4">
+                    <form action={`/users/${user.id}/delete`} method="post" className="inline">
+                      <button
+                        type="submit"
+                        className="text-red-400 hover:text-red-300 transition-colors text-sm font-semibold"
+                      >
+                        🗑️ Eliminar
+                      </button>
+                    </form>
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="divide-y">
-                {reservations.map((reservation: ReservationRow) => (
-                  <tr key={reservation.id} className="py-2">
-                    <td className="py-3">{reservation.user.name}</td>
-                    <td className="py-3">{reservation.resource.name}</td>
-                    <td className="py-3">{format(new Date(reservation.date), "dd/MM/yyyy HH:mm")}</td>
-                    <td className="py-3">{format(new Date(reservation.endTime), "dd/MM/yyyy HH:mm")}</td>
-                    <td className="py-3">
-                      <form action={`/reservations/${reservation.id}/delete`} method="post" className="inline">
-                        <button type="submit" className="text-sm text-red-600">Cancelar</button>
-                      </form>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Resources Section */}
+      <div className="card">
+        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+          ⚙️ Recursos ({resources.length})
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-slate-700/50">
+                <th className="text-left py-4 px-4 text-slate-300 font-semibold">Nombre</th>
+                <th className="text-left py-4 px-4 text-slate-300 font-semibold">Ubicación</th>
+                <th className="text-left py-4 px-4 text-slate-300 font-semibold">Reservas</th>
+                <th className="text-left py-4 px-4 text-slate-300 font-semibold">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {resources.map((resource: ResourceRow) => (
+                <tr
+                  key={resource.id}
+                  className="border-b border-slate-700/30 hover:bg-slate-700/30 transition-colors"
+                >
+                  <td className="py-4 px-4 font-semibold">{resource.name}</td>
+                  <td className="py-4 px-4 text-slate-400">{resource.location}</td>
+                  <td className="py-4 px-4">
+                    <span className="inline-block px-3 py-1 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 text-indigo-300 rounded-full text-sm font-bold">
+                      {resource.reservations.length}
+                    </span>
+                  </td>
+                  <td className="py-4 px-4 space-x-3">
+                    <Link
+                      href={`/resources/${resource.id}/edit`}
+                      className="text-indigo-400 hover:text-indigo-300 transition-colors text-sm font-semibold"
+                    >
+                      ✏️ Editar
+                    </Link>
+                    <form action={`/resources/${resource.id}/delete`} method="post" className="inline">
+                      <button
+                        type="submit"
+                        className="text-red-400 hover:text-red-300 transition-colors text-sm font-semibold"
+                      >
+                        🗑️ Eliminar
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Reservations Section */}
+      <div className="card">
+        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+          📅 Reservas Recientes ({reservations.length})
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-slate-700/50">
+                <th className="text-left py-4 px-4 text-slate-300 font-semibold">Usuario</th>
+                <th className="text-left py-4 px-4 text-slate-300 font-semibold">Recurso</th>
+                <th className="text-left py-4 px-4 text-slate-300 font-semibold">Fecha Inicio</th>
+                <th className="text-left py-4 px-4 text-slate-300 font-semibold">Fecha Fin</th>
+                <th className="text-left py-4 px-4 text-slate-300 font-semibold">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reservations.map((reservation: ReservationRow) => (
+                <tr
+                  key={reservation.id}
+                  className="border-b border-slate-700/30 hover:bg-slate-700/30 transition-colors"
+                >
+                  <td className="py-4 px-4">{reservation.user.name}</td>
+                  <td className="py-4 px-4 font-semibold">{reservation.resource.name}</td>
+                  <td className="py-4 px-4 text-slate-400 text-sm">
+                    {format(new Date(reservation.date), "dd/MM/yyyy HH:mm")}
+                  </td>
+                  <td className="py-4 px-4 text-slate-400 text-sm">
+                    {format(new Date(reservation.endTime), "dd/MM/yyyy HH:mm")}
+                  </td>
+                  <td className="py-4 px-4">
+                    <form action={`/reservations/${reservation.id}/delete`} method="post" className="inline">
+                      <button
+                        type="submit"
+                        className="text-red-400 hover:text-red-300 transition-colors text-sm font-semibold"
+                      >
+                        ❌ Cancelar
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </main>
   );
