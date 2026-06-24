@@ -34,7 +34,7 @@ npm install
 
 ```bash
 npm run dev
-```j
+```
 
 7. Abre `http://localhost:3000`.
 
@@ -47,8 +47,8 @@ npm run dev
 
 
 ## Mira mi trabajo desplegado! 🚀💜
-(![inicio](captures/image1.png))
-(![inicio](captures/image2.png))
-(![calendario](captures/image3.png))
-(![iniciar sesion](captures/image4.png))
-(![registrarse](captures/image5.png))
+![inicio](captures/image1.png)
+![inicio](captures/image2.png)
+![calendario](captures/image3.png)
+![iniciar sesion](captures/image4.png)
+![registrarse](captures/image5.png)
