@@ -20,7 +20,7 @@ export default async function CalendarPage() {
               <div>Inicio: {format(new Date(reservation.date), "dd/MM/yyyy HH:mm")}</div>
               <div>Fin: {format(new Date(reservation.endTime), "dd/MM/yyyy HH:mm")}</div>
             </div>
-            <Link href={`/reservations/${reservation.id}/delete`} className="mt-4 inline-block text-xs text-slate-400 hover:text-white">
+            <Link href={`/reservations/${reservation.id}`} className="mt-4 inline-block text-xs text-slate-400 hover:text-white">
               Ver reserva
             </Link>
           </div>
