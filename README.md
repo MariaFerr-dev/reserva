@@ -1,11 +1,11 @@
-# Reservaa
+# Reserva de espacios 📝
 
 Aplicación web CRUD para gestionar recursos y reservas, creada con Next.js, Prisma y PostgreSQL (Neon).
 
-## Objetivo
-Proyecto sencillo para aprender desarrollo full-stack con operaciones CRUD, persistencia en base de datos en línea y despliegue en la nube.
+## Objetivo 😎
+ Realizar un Proyecto sencillo para aprender desarrollo full-stack con operaciones CRUD, persistencia en base de datos en línea y despliegue en la nube.
 
-## Tecnologías
+## Tecnologías 🛠️
 - Next.js
 - React
 - TypeScript
@@ -13,13 +13,13 @@ Proyecto sencillo para aprender desarrollo full-stack con operaciones CRUD, pers
 - PostgreSQL / Neon
 - Vercel
 
-## Modelo de datos
+## Modelo de datos 🧩
 - Usuarios
 - Recursos
 - Reservas
 - Horarios
 
-## Instrucciones de instalación
+## Instrucciones de instalación 🎀
 1. Clona el repositorio.
 2. Copia `.env.example` a `.env`.
 3. Configurar `DATABASE_URL` 
@@ -34,17 +34,21 @@ npm install
 
 ```bash
 npm run dev
-```
+```j
 
 7. Abre `http://localhost:3000`.
 
-## Despliegue en Vercel
-1. Crear un repositorio en GitHub y sube el código.
-2. Conecta el repositorio en Vercel.
-3. Define la variable de entorno `DATABASE_URL` en Vercel.
+## Despliegue en Vercel 🌐
+1. Crear un repositorio en GitHub y subir el código.
+2. Conectar el repositorio en Vercel.
+3. Definir la variable de entorno `DATABASE_URL` en Vercel.
 4. Desplegar
+5. https://reserva-lilac-two.vercel.app/
 
 
-
-## Capturas
-Incluye capturas de pantalla en tu README o documento final cuando tengas la aplicación en ejecución.
+## Mira mi trabajo desplegado! 🚀💜
+(![inicio](captures/image1.png))
+(![inicio](captures/image2.png))
+(![calendario](captures/image3.png))
+(![iniciar sesion](captures/image4.png))
+(![registrarse](captures/image5.png))
