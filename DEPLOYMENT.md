@@ -13,17 +13,11 @@ En el panel de Vercel, ve a **Settings → Environment Variables** y agrega:
 
 ```
 DATABASE_URL=postgresql://...  (tu URL de Neon)
-JWT_SECRET=your-strong-random-secret-key-here
-```
-
-Para generar una clave segura para `JWT_SECRET`, puedes usar:
-```bash
-node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
 
 ### 3. Variables importantes
 - **DATABASE_URL**: Copia tu URL de conexión de [Neon Console](https://console.neon.tech)
-- **JWT_SECRET**: Genera una clave aleatoria fuerte (mínimo 32 caracteres)
+- No se necesita `JWT_SECRET` ya que la aplicación usa una sesión de cookie simple.
 
 ### 4. Build Settings
 Vercel auto-detectará:

@@ -1,5 +1,5 @@
 import { prisma } from "../../../../lib/prisma";
-import { verifyPassword, generateSessionToken, setSessionCookie } from "../../../../lib/auth";
+import { verifyPassword, setSessionCookie } from "../../../../lib/auth";
 
 export async function POST(request: Request) {
   const form = await request.formData();
@@ -20,7 +20,6 @@ export async function POST(request: Request) {
     return new Response("Credenciales inválidas", { status: 401 });
   }
 
-  const token = await generateSessionToken(user.id);
-  setSessionCookie(token);
+  setSessionCookie(user.id);
   return new Response(null, { status: 303, headers: { Location: "/my-reservations" } });
 }

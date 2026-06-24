@@ -1,5 +1,5 @@
 import { prisma } from "../../../../lib/prisma";
-import { hashPassword, generateSessionToken, setSessionCookie } from "../../../../lib/auth";
+import { hashPassword, setSessionCookie } from "../../../../lib/auth";
 
 export async function POST(request: Request) {
   const form = await request.formData();
@@ -29,8 +29,7 @@ export async function POST(request: Request) {
     data: { name, email, passwordHash, role },
   });
 
-  const token = await generateSessionToken(user.id);
-  setSessionCookie(token);
+  setSessionCookie(user.id);
 
   return new Response(null, { status: 303, headers: { Location: "/my-reservations" } });
 }

@@ -1,30 +1,17 @@
 import { cookies } from "next/headers";
-import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { prisma } from "./prisma";
 
 const COOKIE_NAME = "reservas_session";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 
-function getSecret() {
-  if (!process.env.JWT_SECRET) {
-    throw new Error("JWT_SECRET no definido en las variables de entorno.");
-  }
-  return process.env.JWT_SECRET;
-}
-
 export async function getCurrentUser() {
-  const token = cookies().get(COOKIE_NAME)?.value;
-  if (!token) return null;
+  const userId = cookies().get(COOKIE_NAME)?.value;
+  if (!userId) return null;
 
-  try {
-    const payload = jwt.verify(token, getSecret()) as { userId: string };
-    return await prisma.user.findUnique({
-      where: { id: payload.userId },
-    });
-  } catch {
-    return null;
-  }
+  return await prisma.user.findUnique({
+    where: { id: userId },
+  });
 }
 
 export async function requireUser() {
@@ -43,14 +30,10 @@ export async function requireAdmin() {
   return user;
 }
 
-export async function generateSessionToken(userId: string) {
-  return jwt.sign({ userId }, getSecret(), { expiresIn: COOKIE_MAX_AGE });
-}
-
-export function setSessionCookie(token: string) {
+export function setSessionCookie(userId: string) {
   cookies().set({
     name: COOKIE_NAME,
-    value: token,
+    value: userId,
     httpOnly: true,
     path: "/",
     maxAge: COOKIE_MAX_AGE,

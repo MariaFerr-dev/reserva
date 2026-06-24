@@ -13,7 +13,8 @@ export async function POST(request: Request) {
   const name = form.get("name");
   const email = form.get("email");
   const password = form.get("password");
-  const role = form.get("role");
+  const rawRole = form.get("role");
+  const role = typeof rawRole === "string" ? rawRole : "USER";
 
   if (
     typeof name !== "string" ||
