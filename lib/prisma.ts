@@ -5,10 +5,6 @@ const globalForPrisma = global as typeof globalThis & {
 };
 
 export function getPrisma() {
-  if (!process.env.DATABASE_URL) {
-    throw new Error("DATABASE_URL no definido. Configura esta variable de entorno para usar la base de datos.");
-  }
-
   if (!globalForPrisma.prisma) {
     globalForPrisma.prisma = new PrismaClient();
   }
