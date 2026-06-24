@@ -17,22 +17,18 @@ Proyecto sencillo para aprender desarrollo full-stack con operaciones CRUD, pers
 - Usuarios
 - Recursos
 - Reservas
+- Horarios
 
 ## Instrucciones de instalación
 1. Clona el repositorio.
 2. Copia `.env.example` a `.env`.
-3. Configura `DATABASE_URL` con tu conexión Neon.
+3. Configurar `DATABASE_URL` 
 4. Instala dependencias:
 
 ```bash
 npm install
 ```
 
-5. Crea la base de datos con Prisma:
-
-```bash
-npx prisma db push
-```
 
 6. Ejecuta la app:
 
@@ -43,18 +39,12 @@ npm run dev
 7. Abre `http://localhost:3000`.
 
 ## Despliegue en Vercel
-1. Crea un repositorio en GitHub y sube el código.
+1. Crear un repositorio en GitHub y sube el código.
 2. Conecta el repositorio en Vercel.
 3. Define la variable de entorno `DATABASE_URL` en Vercel.
-4. Despliega.
+4. Desplegar
 
-## Funcionalidades incluidas
-- CRUD de recursos
-- CRUD de usuarios
-- Gestión de reservas con validación de conflictos
-- Búsqueda de recursos
-- Relaciones entre entidades
-- Mensajes de éxito / error
+
 
 ## Capturas
 Incluye capturas de pantalla en tu README o documento final cuando tengas la aplicación en ejecución.
