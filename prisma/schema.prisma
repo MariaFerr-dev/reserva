@@ -8,21 +8,23 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  name      String
-  email     String    @unique
-  role      Role      @default(USER)
+  id           String        @id @default(uuid())
+  name         String
+  email        String        @unique
+  passwordHash String?
+  role         Role          @default(USER)
   reservations Reservation[]
-  createdAt DateTime  @default(now())
+  createdAt    DateTime      @default(now())
 }
 
 model Resource {
-  id          String      @id @default(uuid())
-  name        String
-  description String
-  location    String
+  id           String        @id @default(uuid())
+  name         String
+  description  String
+  location     String
   reservations Reservation[]
-  createdAt   DateTime    @default(now())
+  horarios     Horario[]
+  createdAt    DateTime      @default(now())
 }
 
 model Reservation {
@@ -32,6 +34,16 @@ model Reservation {
   resource   Resource @relation(fields: [resourceId], references: [id])
   resourceId String
   date       DateTime
+  endTime    DateTime
+  createdAt  DateTime @default(now())
+}
+
+model Horario {
+  id         String   @id @default(uuid())
+  resource   Resource @relation(fields: [resourceId], references: [id])
+  resourceId String
+  day        String
+  startTime  DateTime
   endTime    DateTime
   createdAt  DateTime @default(now())
 }

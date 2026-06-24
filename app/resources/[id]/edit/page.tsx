@@ -1,35 +1,62 @@
 import Link from "next/link";
 import { prisma } from "../../../../lib/prisma";
+import { getCurrentUser } from "../../../../lib/auth";
 
 export default async function EditResource({ params }: { params: { id: string } }) {
+  const user = await getCurrentUser();
   const resource = await prisma.resource.findUnique({ where: { id: params.id } });
 
+  if (!user || user.role !== "ADMIN") {
+    return (
+      <main className="max-w-3xl mx-auto px-6 py-12">
+        <div className="rounded-2xl border border-slate-700 bg-slate-950 p-6 text-slate-300">
+          No tienes permiso para editar recursos.
+        </div>
+      </main>
+    );
+  }
+
   if (!resource) {
-    return <main style={{ padding: 24 }}>Recurso no encontrado.</main>;
+    return <main className="max-w-3xl mx-auto px-6 py-12">Recurso no encontrado.</main>;
   }
 
   return (
-    <main style={{ padding: 24, fontFamily: "sans-serif" }}>
-      <h1>Editar recurso</h1>
-      <form action="/resources/edit" style={{ display: "grid", gap: 12, maxWidth: 420 }}>
+    <main className="max-w-3xl mx-auto px-6 py-12">
+      <h1 className="text-3xl font-bold mb-6">Editar recurso</h1>
+      <form action="/resources/edit" method="post" className="space-y-4">
         <input type="hidden" name="id" value={resource.id} />
-        <label>
-          Nombre
-          <input name="name" defaultValue={resource.name} required style={{ width: "100%", padding: 8, marginTop: 4 }} />
+        <label className="block">
+          <span className="text-sm font-medium">Nombre</span>
+          <input
+            name="name"
+            defaultValue={resource.name}
+            required
+            className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-900 p-3 text-white"
+          />
         </label>
-        <label>
-          Descripción
-          <textarea name="description" defaultValue={resource.description} required style={{ width: "100%", padding: 8, marginTop: 4 }} />
+        <label className="block">
+          <span className="text-sm font-medium">Descripción</span>
+          <textarea
+            name="description"
+            defaultValue={resource.description}
+            required
+            className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-900 p-3 text-white"
+          />
         </label>
-        <label>
-          Ubicación
-          <input name="location" defaultValue={resource.location} required style={{ width: "100%", padding: 8, marginTop: 4 }} />
+        <label className="block">
+          <span className="text-sm font-medium">Ubicación</span>
+          <input
+            name="location"
+            defaultValue={resource.location}
+            required
+            className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-900 p-3 text-white"
+          />
         </label>
-        <div style={{ display: "flex", gap: 12, marginTop: 12 }}>
-          <button type="submit" style={{ padding: 10, background: "#0b5fff", color: "white", border: "none", borderRadius: 6 }}>
+        <div className="flex gap-4 mt-4">
+          <button type="submit" className="btn-primary py-3 px-6">
             Actualizar
           </button>
-          <Link href="/" style={{ padding: 10, border: "1px solid #ccc", borderRadius: 6, textDecoration: "none" }}>
+          <Link href="/" className="btn-secondary py-3 px-6">
             Cancelar
           </Link>
         </div>

@@ -1,13 +1,16 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getCurrentUser } from "../lib/auth";
 
 export const metadata: Metadata = {
   title: "ReservasApp",
   description: "Aplicación CRUD de reservas con Neon y Vercel",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const user = await getCurrentUser();
+
   return (
     <html lang="es">
       <body>
@@ -21,12 +24,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
             </Link>
             <nav className="flex items-center gap-3">
-              <Link href="/resources/new" className="btn-primary text-sm">
-                ➕ Nuevo Recurso
+              <Link href="/calendar" className="text-sm text-slate-200 hover:text-white transition-colors">
+                📅 Calendario
               </Link>
-              <Link href="/reservations/new" className="btn-accent text-sm">
-                📅 Nueva Reserva
+              <Link href="/my-reservations" className="text-sm text-slate-200 hover:text-white transition-colors">
+                🧾 Mis Reservas
               </Link>
+              {user ? (
+                <>
+                  <Link href="/resources/new" className="btn-primary text-sm">
+                    ➕ Recurso
+                  </Link>
+                  <form action="/api/auth/logout" method="post" className="inline">
+                    <button type="submit" className="btn-secondary text-sm">
+                      Cerrar sesión
+                    </button>
+                  </form>
+                </>
+              ) : (
+                <>
+                  <Link href="/auth/login" className="btn-secondary text-sm">
+                    Iniciar sesión
+                  </Link>
+                  <Link href="/auth/register" className="btn-accent text-sm">
+                    Registrarse
+                  </Link>
+                </>
+              )}
             </nav>
           </div>
         </header>

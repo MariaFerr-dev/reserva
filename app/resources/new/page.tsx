@@ -1,27 +1,40 @@
 import Link from "next/link";
+import { getCurrentUser } from "../../../lib/auth";
 
 export default async function NewResource() {
+  const user = await getCurrentUser();
+
+  if (!user || user.role !== "ADMIN") {
+    return (
+      <main className="max-w-3xl mx-auto px-6 py-12">
+        <div className="rounded-2xl border border-slate-700 bg-slate-950 p-6 text-slate-300">
+          No tienes permiso para registrar nuevos recursos.
+        </div>
+      </main>
+    );
+  }
+
   return (
-    <main style={{ padding: 24, fontFamily: "sans-serif" }}>
-      <h1>Crear recurso</h1>
-      <form action="/api/resources/new" method="post" style={{ display: "grid", gap: 12, maxWidth: 420 }}>
-        <label>
-          Nombre
-          <input name="name" required style={{ width: "100%", padding: 8, marginTop: 4 }} />
+    <main className="max-w-3xl mx-auto px-6 py-12">
+      <h1 className="text-3xl font-bold mb-6">Crear recurso</h1>
+      <form action="/api/resources/new" method="post" className="space-y-4">
+        <label className="block">
+          <span className="text-sm font-medium">Nombre</span>
+          <input name="name" required className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-900 p-3 text-white" />
         </label>
-        <label>
-          Descripción
-          <textarea name="description" required style={{ width: "100%", padding: 8, marginTop: 4 }} />
+        <label className="block">
+          <span className="text-sm font-medium">Descripción</span>
+          <textarea name="description" required className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-900 p-3 text-white" />
         </label>
-        <label>
-          Ubicación
-          <input name="location" required style={{ width: "100%", padding: 8, marginTop: 4 }} />
+        <label className="block">
+          <span className="text-sm font-medium">Ubicación</span>
+          <input name="location" required className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-900 p-3 text-white" />
         </label>
-        <div style={{ display: "flex", gap: 12, marginTop: 12 }}>
-          <button type="submit" style={{ padding: 10, background: "#0b5fff", color: "white", border: "none", borderRadius: 6 }}>
+        <div className="flex gap-4 mt-4">
+          <button type="submit" className="btn-primary py-3 px-6">
             Guardar
           </button>
-          <Link href="/" style={{ padding: 10, border: "1px solid #ccc", borderRadius: 6, textDecoration: "none" }}>
+          <Link href="/" className="btn-secondary py-3 px-6">
             Cancelar
           </Link>
         </div>

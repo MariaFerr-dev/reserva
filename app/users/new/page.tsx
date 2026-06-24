@@ -1,30 +1,47 @@
 import Link from "next/link";
+import { getCurrentUser } from "../../../lib/auth";
 
 export default async function NewUser() {
+  const user = await getCurrentUser();
+
+  if (!user || user.role !== "ADMIN") {
+    return (
+      <main className="max-w-3xl mx-auto px-6 py-12">
+        <div className="rounded-2xl border border-slate-700 bg-slate-950 p-6 text-slate-300">
+          No tienes permiso para crear usuarios.
+        </div>
+      </main>
+    );
+  }
+
   return (
-    <main style={{ padding: 24, fontFamily: "sans-serif" }}>
-      <h1>Crear usuario</h1>
-      <form action="/api/users/new" method="post" style={{ display: "grid", gap: 12, maxWidth: 420 }}>
-        <label>
-          Nombre
-          <input name="name" required style={{ width: "100%", padding: 8, marginTop: 4 }} />
+    <main className="max-w-3xl mx-auto px-6 py-12">
+      <h1 className="text-3xl font-bold mb-6">Crear usuario</h1>
+      <form action="/api/users/new" method="post" className="space-y-4">
+        <label className="block">
+          <span className="text-sm font-medium">Nombre</span>
+          <input name="name" required className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-900 p-3 text-white" />
         </label>
-        <label>
-          Correo electrónico
-          <input name="email" type="email" required style={{ width: "100%", padding: 8, marginTop: 4 }} />
+        <label className="block">
+          <span className="text-sm font-medium">Correo electrónico</span>
+          <input name="email" type="email" required className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-900 p-3 text-white" />
         </label>
-        <label>
-          Rol
-          <select name="role" style={{ width: "100%", padding: 8, marginTop: 4 }}>
+        <label className="block">
+          <span className="text-sm font-medium">Contraseña</span>
+          <input name="password" type="password" required className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-900 p-3 text-white" />
+        </label>
+        <label className="block">
+          <span className="text-sm font-medium">Rol</span>
+          <select name="role" className="mt-2 w-full rounded-lg border border-slate-700 bg-slate-900 p-3 text-white">
             <option value="USER">Usuario</option>
             <option value="ADMIN">Administrador</option>
           </select>
         </label>
-        <div style={{ display: "flex", gap: 12, marginTop: 12 }}>
-          <button type="submit" style={{ padding: 10, background: "#0b5fff", color: "white", border: "none", borderRadius: 6 }}>
+        <div className="flex gap-4 mt-4">
+          <button type="submit" className="btn-primary py-3 px-6">
             Guardar
           </button>
-          <Link href="/" style={{ padding: 10, border: "1px solid #ccc", borderRadius: 6, textDecoration: "none" }}>
+          <Link href="/" className="btn-secondary py-3 px-6">
             Cancelar
           </Link>
         </div>

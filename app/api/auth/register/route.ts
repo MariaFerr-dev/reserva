@@ -1,14 +1,7 @@
 import { prisma } from "../../../../lib/prisma";
-import { hashPassword, requireAdmin } from "../../../../lib/auth";
+import { hashPassword, generateSessionToken, setSessionCookie } from "../../../../lib/auth";
 
 export async function POST(request: Request) {
-  try {
-    await requireAdmin();
-  } catch (error) {
-    const status = error instanceof Error && error.message === "Forbidden" ? 403 : 401;
-    return new Response("No autorizado", { status });
-  }
-
   const form = await request.formData();
   const name = form.get("name");
   const email = form.get("email");
@@ -24,8 +17,19 @@ export async function POST(request: Request) {
     return new Response("Datos inválidos", { status: 400 });
   }
 
+  const existingUser = await prisma.user.findUnique({ where: { email } });
+  if (existingUser) {
+    return new Response("Email ya registrado", { status: 409 });
+  }
+
   const passwordHash = await hashPassword(password);
 
-  await prisma.user.create({ data: { name, email, passwordHash, role } });
-  return new Response(null, { status: 303, headers: { Location: "/" } });
+  const user = await prisma.user.create({
+    data: { name, email, passwordHash, role },
+  });
+
+  const token = await generateSessionToken(user.id);
+  setSessionCookie(token);
+
+  return new Response(null, { status: 303, headers: { Location: "/my-reservations" } });
 }
